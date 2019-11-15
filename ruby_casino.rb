@@ -27,3 +27,81 @@
 require 'pry'
 require 'colorize'
 
+module Wallet
+  def view_wallet
+    puts @wallet
+  end
+end
+
+class User 
+
+  attr_accessor :name, :wallet
+
+  include Wallet
+
+  def intro
+    puts "\nWhat is your name?"
+    @name = gets.strip.capitalize
+    puts "\nHow much money would you like to deposit into your wallet?"
+    @wallet = gets.to_i
+    menu
+  end
+
+  def menu
+    puts "\nHello #{name}! How would you like to spend your money?"
+
+    puts "\n1: Games"
+    puts "2: Place Bets"
+    puts "3: View Your Wallet"
+    puts "4: Exit the Casino"
+
+    case choice = gets.to_i
+    when 1
+      game_menu
+    when 2
+      puts "Go to bets"
+    when 3
+      view_wallet
+      menu
+    when 4
+      exit
+    else 
+      puts "Invalid Choice. Try Again"
+      menu
+    end
+  end
+
+  def game_menu
+    puts "\nGame Menu:"
+    puts "1: Black Jack"
+    puts "2: Slots"
+    puts "3: High / Low"
+    puts "4: Main Menu"
+
+    case choice = gets.to_i
+    when 1
+      puts "Goes to Black Jack"
+    when 2
+      puts "Goes to Slots"
+    when 3
+      puts "Goes to High / Low"
+    when 4
+      menu
+    else
+      puts "Invalid Choice. Try Again"
+      game_menu
+    end
+
+  end
+
+  def bet_menu
+  end
+
+end
+
+def create_user
+  new_gambler = User.new
+  new_gambler.intro
+end
+
+create_user
