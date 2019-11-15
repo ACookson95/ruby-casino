@@ -27,27 +27,33 @@
 require 'pry'
 require 'colorize'
 
-module Wallet
-  def view_wallet
-    puts @wallet
-  end
-end
-
 class User 
 
   attr_accessor :name, :wallet
 
-  include Wallet
+  def initialize
+    intro
+  end
+
 
   def intro
     puts "\nWhat is your name?"
     @name = gets.strip.capitalize
     puts "\nHow much money would you like to deposit into your wallet?"
     @wallet = gets.to_i
-    menu
+    View.menu
   end
 
-  def menu
+  def view_wallet
+    puts @wallet
+  end
+
+  
+end
+
+class View
+
+  def self.menu
     puts "\nHello #{name}! How would you like to spend your money?"
 
     puts "\n1: Games"
@@ -96,12 +102,7 @@ class User
 
   def bet_menu
   end
-
 end
 
-def create_user
-  new_gambler = User.new
-  new_gambler.intro
-end
 
-create_user
+User.new.intro
