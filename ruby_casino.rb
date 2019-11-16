@@ -31,78 +31,170 @@ class User
 
   attr_accessor :name, :wallet
 
-  def initialize
-    intro
+  def initialize(name,wallet)
+    @name = name
+    @wallet = wallet
   end
 
-
-  def intro
-    puts "\nWhat is your name?"
-    @name = gets.strip.capitalize
-    puts "\nHow much money would you like to deposit into your wallet?"
-    @wallet = gets.to_i
-    View.menu
+  def wallet
+    @wallet
   end
 
-  def view_wallet
-    puts @wallet
+  def name
+    @name
   end
-
   
 end
 
-class View
+def intro
+  puts "\nHow old are you?"
+  age = gets.to_i
+  if age < 21
+    puts "Lol nice try."
+    exit          #potentially we could have this go somewhere else other than a casino.
+  elsif age >= 21
+    puts "\n"
 
-  def self.menu
-    puts "\nHello #{name}! How would you like to spend your money?"
-
-    puts "\n1: Games"
-    puts "2: Place Bets"
-    puts "3: View Your Wallet"
-    puts "4: Exit the Casino"
-
-    case choice = gets.to_i
-    when 1
-      game_menu
-    when 2
-      puts "Go to bets"
-    when 3
-      view_wallet
-      menu
-    when 4
-      exit
-    else 
-      puts "Invalid Choice. Try Again"
-      menu
-    end
-  end
-
-  def game_menu
-    puts "\nGame Menu:"
-    puts "1: Black Jack"
-    puts "2: Slots"
-    puts "3: High / Low"
-    puts "4: Main Menu"
-
-    case choice = gets.to_i
-    when 1
-      puts "Goes to Black Jack"
-    when 2
-      puts "Goes to Slots"
-    when 3
-      puts "Goes to High / Low"
-    when 4
-      menu
-    else
-      puts "Invalid Choice. Try Again"
-      game_menu
-    end
-
-  end
-
-  def bet_menu
+    puts "               .     '     ,    ".colorize(:red)
+    puts "                 _________      ".colorize(:red)
+    puts "            _   /_|_____|_\\   _ ".colorize(:red)
+    puts "                '. \\   / .'     ".colorize(:red)
+    puts "                  '.\\ /.'       ".colorize(:red)
+    puts "                    '.'         ".colorize(:red)
+    puts " =========================================".colorize(:red)
+    puts "||     Welcome to the RUBY CASINO!       ||".colorize(:red)
+    puts " =========================================".colorize(:red)
+    puts "\n"
+    create_user
+  else
+    puts "What the freak? I don't believe you"
+    intro
   end
 end
 
+def create_user
+  puts "Create Your Profile:"
+  puts "\nWhat is your name?"
+  name = gets.strip.capitalize
+  puts "\nHow much money would you like to deposit into your wallet?"
+  print '$'
+  wallet = gets.to_i
 
-User.new.intro
+  @user = User.new(name,wallet)
+  menu
+end
+
+def menu
+  puts "\n=======================================================================".colorize(:red)
+  puts "\nHello #{@user.name}! How would you like to spend your money?"
+  puts "\n1: Games"
+  puts "2: Place Bets"
+  puts "3: Manage Your Wallet"
+  puts "4: Exit the Casino"
+
+  case choice = gets.to_i
+  when 1
+    game_menu
+  when 2
+    puts "Go to bets"
+    menu
+  when 3
+    manage_wallet
+  when 4
+    exit
+  else 
+    puts "Invalid Choice. Try Again"
+    menu
+  end
+end
+
+def game_menu
+  puts "\nGame Menu:"
+  puts "1: Black Jack"
+  puts "2: Slots"
+  puts "3: High / Low"
+  puts "4: Main Menu"
+
+  case choice = gets.to_i
+  when 1
+    puts "Goes to Black Jack"
+    game_menu
+  when 2
+    puts "Goes to Slots"
+    game_menu
+  when 3
+    puts "Goes to High / Low"
+    game_menu
+  when 4
+    menu
+  else
+    puts "Invalid Choice. Try Again"
+    game_menu
+  end
+
+end
+
+def bet_menu
+end
+
+def manage_wallet
+  current_wallet = @user.wallet
+    puts "\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".colorize(:green)
+    puts "\nYour current balance in your wallet is: $#{current_wallet}".colorize(:green)
+    puts "\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".colorize(:green)
+    puts "\nSelect an Option:"
+    puts "1: Add to Wallet:"
+    puts "2: Cash Out"
+    puts "3: Back to Main Menu"
+  
+    case choice = gets.to_i
+    when 1
+      puts "How much would you like to deposit?"
+      print '$'
+      deposit = gets.to_i
+      @user.wallet += deposit
+      manage_wallet
+    when 2 
+      puts "Dang. Look at all those fat stacks."
+      puts "\n"
+      puts"  ──────────────────██████────────────────"
+      puts"  ─────────────────████████─█─────────────"
+      puts"  ─────────────██████████████─────────────"
+      puts"  ─────────────█████████████──────────────"
+      puts"  ──────────────███████████───────────────"
+      puts"  ───────────────██████████───────────────"
+      puts"  ────────────────████████────────────────"
+      puts"  ────────────────▐██████─────────────────"
+      puts"  ────────────────▐██████─────────────────"
+      puts"  ──────────────── ▌─────▌────────────────"
+      puts"  ────────────────███─█████───────────────"
+      puts"  ────────────████████████████────────────"
+      puts"  ──────────████████████████████──────────"
+      puts"  ────────████████████─────███████────────"
+      puts"  ──────███████████─────────███████───────"
+      puts"  ─────████████████───██─███████████──────"
+      puts"  ────██████████████──────────████████────"
+      puts"  ───████████████████─────█───█████████───"
+      puts"  ──█████████████████████─██───█████████──"
+      puts"  ──█████████████████████──██──██████████─"
+      puts"  ─███████████████████████─██───██████████"
+      puts"  ████████████████████████──────██████████"
+      puts"  ███████████████████──────────███████████"
+      puts"  ─██████████████████───────██████████████"
+      puts"  ─███████████████████████──█████████████─"
+      puts"  ──█████████████████████████████████████─"
+      puts"  ───██████████████████████████████████───"
+      puts"  ───────██████████████████████████████───"
+      puts"  ───────██████████████████████████───────"
+      puts"  ─────────────███████████████────────────"
+      @user.wallet = 0
+      manage_wallet
+    when 3
+      menu
+    else
+      puts "Invalid Choice. Try Again"
+      manage_wallet
+    end
+end
+
+intro
