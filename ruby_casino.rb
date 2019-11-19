@@ -26,83 +26,225 @@
 
 require 'pry'
 require 'colorize'
+# require_relative 'Blackjack'
+# require_relative 'high_low'
+# require_relative 'slots'
+
+
+@users = []
 
 class User 
 
   attr_accessor :name, :wallet
 
-  def initialize
-    intro
+  def initialize(name,wallet)
+    @name = name
+    @wallet = wallet
   end
 
-
-  def intro
-    puts "\nWhat is your name?"
-    @name = gets.strip.capitalize
-    puts "\nHow much money would you like to deposit into your wallet?"
-    @wallet = gets.to_i
-    View.menu
+  def wallet
+    @wallet
   end
 
-  def view_wallet
-    puts @wallet
+  def name
+    @name
   end
 
-  
 end
 
-class View
+def intro
+  puts "\nHow old are you?"
+  age = gets.to_i
+  if age < 21
+    puts "Lol nice try."
+    exit          #potentially we could have this go somewhere else other than a casino.
+  elsif age >= 21
+    puts "\n"
 
-  def self.menu
-    puts "\nHello #{name}! How would you like to spend your money?"
+    puts "               .     '     ,    ".colorize(:red)
+    puts "                 _________      ".colorize(:red)
+    puts "            _   /_|_____|_\\   _ ".colorize(:red)
+    puts "                '. \\   / .'     ".colorize(:red)
+    puts "                  '.\\ /.'       ".colorize(:red)
+    puts "                    '.'         ".colorize(:red)
+    puts " =========================================".colorize(:red)
+    puts "||     Welcome to the RUBY CASINO!       ||".colorize(:red)
+    puts " =========================================".colorize(:red)
+    puts "\n"
+    create_user
+  else
+    puts "What the freak? I don't believe you"
+    intro
+  end
+end
 
-    puts "\n1: Games"
-    puts "2: Place Bets"
-    puts "3: View Your Wallet"
-    puts "4: Exit the Casino"
+def create_user
+  puts "\nCreate Your Profile:"
+  puts "\nWhat is your name?"
+  name = gets.strip.capitalize
+  puts "\nHow much money would you like to deposit into your wallet?"
+  print '$'
+  wallet = gets.to_i
 
-    case choice = gets.to_i
-    when 1
-      game_menu
-    when 2
-      puts "Go to bets"
-    when 3
-      view_wallet
-      menu
-    when 4
-      exit
-    else 
-      puts "Invalid Choice. Try Again"
-      menu
-    end
+  @user = User.new(name,wallet)
+  @users << @user
+  menu
+end
+
+def menu
+  puts "\n=======================================================================".colorize(:red)
+  puts "\nHello #{@user.name}! How would you like to spend your money?"
+  puts "\n1: Games"
+  puts "2: Manage Your Wallet"
+  puts "3: Switch Users"
+  puts "4: Cash Out and Exit the Casino"
+
+  case choice = gets.to_i
+  when 1
+    game_menu
+  when 2
+    manage_wallet
+  when 3
+    switch_users
+  when 4
+    cash_out
+    exit
+  else 
+    puts "Invalid Choice. Try Again"
+    menu
+  end
+end
+
+def game_menu
+  puts "\n=======================================================================".colorize(:red)
+  puts "\nGame Menu:"
+  puts "1: Black Jack"
+  puts "2: Slots"
+  puts "3: High / Low"
+  puts "4: Main Menu"
+
+  case choice = gets.to_i
+  when 1
+    black_jack                #replace this with how you are calling blackjack
+  when 2
+    Slots.new                 #replace this with how you are calling slots
+  when 3
+    HighLow.new               #replace this with how you are calling high / low
+  when 4
+    menu
+  else
+    puts "Invalid Choice. Try Again"
+    game_menu
   end
 
-  def game_menu
-    puts "\nGame Menu:"
-    puts "1: Black Jack"
-    puts "2: Slots"
-    puts "3: High / Low"
-    puts "4: Main Menu"
+end
 
+def manage_wallet                       #update @user.wallet to update the user's wallet amount.
+  current_wallet = @user.wallet
+    puts "\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".colorize(:green)
+    puts "\nYour current balance in your wallet is: $#{current_wallet}".colorize(:green)
+    puts "\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$".colorize(:green)
+    puts "\nSelect an Option:"
+    puts "1: Add to Wallet:"
+    puts "2: Cash Out"
+    puts "3: Back to Main Menu"
+  
     case choice = gets.to_i
     when 1
-      puts "Goes to Black Jack"
-    when 2
-      puts "Goes to Slots"
+      puts "How much would you like to deposit?"
+      print '$'
+      deposit = gets.to_i
+      @user.wallet += deposit
+      manage_wallet
+    when 2 
+      cash_out
+      manage_wallet
     when 3
-      puts "Goes to High / Low"
-    when 4
       menu
     else
       puts "Invalid Choice. Try Again"
-      game_menu
+      manage_wallet
     end
+end
 
-  end
+def cash_out
+  puts "\n=======================================================================".colorize(:red)
+  puts "\n"
+  puts"                    ██████"
+  puts"                   ████████ █"
+  puts"               ██████████████"
+  puts"               █████████████"
+  puts"                ███████████"
+  puts"                 ██████████"
+  puts"                  ████████"
+  puts"                  ▐██████"
+  puts"                  ▐██████"
+  puts"                   ▌    ▌"
+  puts"                 ███ █████"
+  puts"              ████████████████"
+  puts"           ████████████████████"
+  puts"          ████████████   ███████"
+  puts"         ███████████        ███████"
+  puts"        ████████████  ██ ███████████"
+  puts"      ██████████████         ████████"
+  puts"     ████████████████     █   █████████"
+  puts"    ████████████████████  ██   █████████"
+  puts"    █████████████████████  ██   ██████████"
+  puts"   ██████████████████████  ██   ██████████"
+  puts"  ████████████████████████      ██████████"
+  puts"  ███████████████████          ███████████"
+  puts"   ██████████████████       ██████████████"
+  puts"   ███████████████████████  █████████████"
+  puts"    █████████████████████████████████████"
+  puts"     ██████████████████████████████████"
+  puts"       ██████████████████████████████"
+  puts"         ██████████████████████████"
+  puts"              ███████████████"
+  puts "\nDang. Look at all those fat stacks."
+  puts "You just cashed out $#{@user.wallet}!!\n".colorize(:green)
+  @user.wallet = 0
+end
 
-  def bet_menu
+def switch_users
+  puts "\n=======================================================================".colorize(:red)
+  puts "\nSwitch User:"
+  puts "\n1: Switch to an existing user"
+  puts "2: Create a new profile"
+  puts "3: Go back to menu"
+
+  case choice = gets.to_i
+    when 1
+      existing_user
+    when 2
+      create_user
+    when 3
+      menu
+    else
+      puts "Invalid Choice. Try Again"
+      switch_users
   end
 end
 
+def existing_user
+  puts "\nWhat is your name?"
+  name = gets.strip.capitalize
+  if name == @user.name
+    puts "You're already signed in dummy"
+    switch_users
+  end
+  @users.each {|x| 
+  if name == x.name
+    @user = x
+    menu
+  end
+  }
+  puts "\nNo user by that name exists. Would you like to create a new user? (y/n)"
+  choice = gets.strip
+  if choice == 'y'
+    create_user
+  else
+    switch_users
+  end
+end
 
-User.new.intro
+intro
