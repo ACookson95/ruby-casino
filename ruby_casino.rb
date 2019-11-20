@@ -127,7 +127,7 @@ def game_menu
   when 1
     black_jack                #replace this with how you are calling blackjack
   when 2
-    Slots.new                 #replace this with how you are calling slots
+    slots               #replace this with how you are calling slots
   when 3
     high_low               #replace this with how you are calling high / low
   when 4
