@@ -111,25 +111,3 @@ def start_game
     high_low
   end
 end
-
-
-def place_bet    
-  puts "\nHow much would you like to bet? You have $#{@user.wallet} in your wallet."
-   print "$"
-   @bet = gets.to_i
-  if @bet < @user.wallet
-    @user.wallet -= @bet
-  elsif @bet == @user.wallet
-    puts "All in. Nice!"
-    @user.wallet -= @bet
-  else
-    puts "You don't have that much money in your wallet." 
-    puts "Would you like to quit and manage your wallet? (y/n)"
-    choice = gets.strip
-    if choice == 'y'
-      manage_wallet
-    else 
-      place_bet
-    end
-  end
-end
