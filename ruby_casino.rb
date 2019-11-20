@@ -28,7 +28,7 @@ require 'pry'
 require 'colorize'
 # require_relative 'Blackjack'
 require_relative 'high_low'
-# require_relative 'slots'
+require_relative 'slots'
 
 
 @users = []
