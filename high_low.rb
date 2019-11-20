@@ -50,10 +50,7 @@ def start_game
   puts "\nThe first card is:"
   puts high_low_card[:card].colorize(:red)
 
-  puts "\nHow much would you like to bet?"
-  print "$"
-  @bet = gets.to_i
-  @user.wallet -= @bet
+  place_bet
 
   puts "\nMake Your Guess"
   puts "1: High - Payout $#{(@bet*high_low_card[:high]).to_i}"
@@ -65,7 +62,7 @@ def start_game
   if choice == 1
     choice = 'high'
   elsif choice == 2
-    choice =='low'
+    choice = 'low'
   else
     puts "Invalid choice."
     start_game
@@ -76,20 +73,33 @@ def start_game
   puts "The second card is:"
   puts high_low_card_2[:card].colorize(:red)
 
-  if high_low_card_2[:value] > high_low_card[:value] && choice == 'high'
-    puts "Congrats! You guessed right!"
-    @winnings = (@bet*high_low_card[:high]).to_i
-    puts "You won $#{@winnings}!"
-    @user.wallet += @winnings
-  elsif high_low_card_2[:value] <= high_low_card[:value] && choice == 'high'
-    puts "Sorry. You guessed wrong this time."
-  elsif high_low_card_2[:value] < high_low_card[:value] && choice == 'low'
-    puts "Congrats! You guessed right!"
-    @winnings = (@bet*high_low_card[:low]).to_i
-    puts "You won $#{@winnings}!"
-    @user.wallet += @winnings
-  elsif high_low_card_2[:value] >= high_low_card[:value] && choice == 'low'
-    puts "Sorry. You guessed wrong this time."
+        #high win
+      if high_low_card_2[:value] > high_low_card[:value] && choice == 'high'
+        puts "Congrats! You guessed right!"
+        @winnings = (@bet*high_low_card[:high]).to_i
+        puts "You won $#{@winnings}!"
+        @user.wallet += @winnings
+        
+        #high lose
+      elsif high_low_card_2[:value] < high_low_card[:value] && choice == 'high'
+        puts "Sorry. You guessed wrong this time."
+
+        #low win
+      elsif high_low_card_2[:value] < high_low_card[:value] && choice == 'low'
+        puts "Congrats! You guessed right!"
+        @winnings = (@bet*high_low_card[:low]).to_i
+        puts "You won $#{@winnings}!"
+        @user.wallet += @winnings
+        
+        #low lose
+      elsif high_low_card_2[:value] > high_low_card[:value] && choice == 'low'
+        puts "Sorry. You guessed wrong this time."
+        
+        #draw
+      elsif high_low_card_2[:value] == high_low_card[:value]
+        puts "It's a draw! You can have your bet back."
+        @user.wallet += @bet
+
   end
 
   puts "\n1: Play Again."
@@ -97,10 +107,29 @@ def start_game
   case choice = gets.to_i
   when 1
     start_game
-  else 
+  else
     high_low
   end
 end
 
 
-
+def place_bet    
+  puts "\nHow much would you like to bet? You have $#{@user.wallet} in your wallet."
+   print "$"
+   @bet = gets.to_i
+  if @bet < @user.wallet
+    @user.wallet -= @bet
+  elsif @bet == @user.wallet
+    puts "All in. Nice!"
+    @user.wallet -= @bet
+  else
+    puts "You don't have that much money in your wallet." 
+    puts "Would you like to quit and manage your wallet? (y/n)"
+    choice = gets.strip
+    if choice == 'y'
+      manage_wallet
+    else 
+      place_bet
+    end
+  end
+end
