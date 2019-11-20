@@ -27,7 +27,7 @@
 require 'pry'
 require 'colorize'
 # require_relative 'Blackjack'
-# require_relative 'high_low'
+require_relative 'high_low'
 # require_relative 'slots'
 
 
@@ -129,7 +129,7 @@ def game_menu
   when 2
     Slots.new                 #replace this with how you are calling slots
   when 3
-    HighLow.new               #replace this with how you are calling high / low
+    high_low               #replace this with how you are calling high / low
   when 4
     menu
   else
@@ -244,6 +244,27 @@ def existing_user
     create_user
   else
     switch_users
+  end
+end
+
+def place_bet    
+  puts "\nHow much would you like to bet? You have $#{@user.wallet} in your wallet."
+   print "$"
+   @bet = gets.to_i
+  if @bet < @user.wallet
+    @user.wallet -= @bet
+  elsif @bet == @user.wallet
+    puts "All in. Nice!"
+    @user.wallet -= @bet
+  else
+    puts "You don't have that much money in your wallet." 
+    puts "Would you like to quit and manage your wallet? (y/n)"
+    choice = gets.strip
+    if choice == 'y'
+      manage_wallet
+    else 
+      place_bet
+    end
   end
 end
 
