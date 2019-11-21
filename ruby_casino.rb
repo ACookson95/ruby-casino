@@ -28,7 +28,7 @@ require 'pry'
 require 'colorize'
 # require_relative 'Blackjack'
 require_relative 'high_low'
-# require_relative 'slots'
+require_relative 'slots'
 
 
 @users = []
@@ -127,7 +127,7 @@ def game_menu
   when 1
     blackjack                #replace this with how you are calling blackjack
   when 2
-    Slots.new                 #replace this with how you are calling slots
+    slots               #replace this with how you are calling slots
   when 3
     high_low               #replace this with how you are calling high / low
   when 4
