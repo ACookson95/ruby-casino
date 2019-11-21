@@ -26,7 +26,7 @@
 
 require 'pry'
 require 'colorize'
-# require_relative 'Blackjack'
+require_relative 'blackjack'
 require_relative 'high_low'
 require_relative 'slots'
 
@@ -118,7 +118,7 @@ end
 def game_menu
   puts "\n=======================================================================".colorize(:red)
   puts "\nGame Menu:"
-  puts "1: Black Jack"
+  puts "1: Blackjack"
   puts "2: Slots"
   puts "3: High / Low"
   puts "4: Main Menu"
