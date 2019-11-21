@@ -1,17 +1,17 @@
 @high_low_cards = [
-  {card: 'Ace', value: 1, low: nil, high: nil},
-  {card: '2', value: 2, low: 10.7, high: 1.1},
-  {card: '3', value: 3, low: 5.3, high: 1.1},
-  {card: '4', value: 4, low: 3.5, high: 1.1},
-  {card: '5', value: 5, low: 2.6, high: 1.3},
-  {card: '6', value: 6, low: 2.1, high: 1.5},
-  {card: '7', value: 7, low: 1.7, high: 1.7},
-  {card: '8', value: 8, low: 1.5, high: 2.1},
-  {card: '9', value: 9, low: 1.3, high: 2.6},
-  {card: '10', value: 10, low: 1.1, high: 3.5},
-  {card: 'Jack', value: 11, low: 1.1, high: 5.3},
-  {card: 'Queen', value: 12, low: 1.1, high: 10.7},
-  {card: 'King', value: 13, low: nil, high: nil}
+  {card: "\n _____ \n|A    |\n|  *  |\n|    A|\n ''''' \n", value: 1, low: nil, high: nil},
+  {card: "\n _____ \n|2  * |\n|     |\n| *  2|\n ''''' \n", value: 2, low: 10.7, high: 1.1},
+  {card: "\n _____ \n|3  * |\n|  *  |\n| *  3|\n ''''' \n", value: 3, low: 5.3, high: 1.1},
+  {card: "\n _____ \n|4  * |\n| * * |\n| *  4|\n ''''' \n", value: 4, low: 3.5, high: 1.1},
+  {card: "\n _____ \n|5  * |\n|* * *|\n| *  5|\n ''''' \n", value: 5, low: 2.6, high: 1.3},
+  {card: "\n _____ \n|6 * *|\n| * * |\n|* * 6|\n ''''' \n", value: 6, low: 2.1, high: 1.5},
+  {card: "\n _____ \n|7 * *|\n|* * *|\n|* * 7|\n ''''' \n", value: 7, low: 1.7, high: 1.7},
+  {card: "\n _____ \n|8 ***|\n| * * |\n|*** 8|\n ''''' \n", value: 8, low: 1.5, high: 2.1},
+  {card: "\n _____ \n|9 ***|\n|* * *|\n|*** 9|\n ''''' \n", value: 9, low: 1.3, high: 2.6},
+  {card: "\n _____ \n|10 **|\n|*****|\n|***10|\n ''''' \n", value: 10, low: 1.1, high: 3.5},
+  {card: "\n _____ \n|J   *|\n|JACK |\n|*   J|\n ''''' \n", value: 11, low: 1.1, high: 5.3},
+  {card: "\n _____ \n|Q   *|\n|QUEEN|\n|*   Q|\n ''''' \n", value: 12, low: 1.1, high: 10.7},
+  {card: "\n _____ \n|K   *|\n|KING |\n|*   K|\n ''''' \n", value: 13, low: nil, high: nil}
 ]
 
 def high_low
@@ -99,8 +99,8 @@ def start_game
       elsif high_low_card_2[:value] == high_low_card[:value]
         puts "It's a draw! You can have your bet back."
         @user.wallet += @bet
-
-  end
+      
+      end
 
   puts "\n1: Play Again."
   puts "2: Return to the Menu."
