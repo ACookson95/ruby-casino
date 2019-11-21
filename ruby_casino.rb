@@ -125,7 +125,7 @@ def game_menu
 
   case choice = gets.to_i
   when 1
-    black_jack                #replace this with how you are calling blackjack
+    blackjack                #replace this with how you are calling blackjack
   when 2
     slots               #replace this with how you are calling slots
   when 3
