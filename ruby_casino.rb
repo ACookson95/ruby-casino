@@ -81,11 +81,15 @@ end
 def create_user
   puts "\nCreate Your Profile:"
   puts "\nWhat is your name?"
-  name = gets.strip.capitalize
+  name = gets.strip.capitalize.to_s
+  if name.to_s.strip.empty?
+    puts "That's not a name."
+    create_user
+  end
+  puts name
   puts "\nHow much money would you like to deposit into your wallet?"
   print '$'
   wallet = gets.to_i
-
   @user = User.new(name,wallet)
   @users << @user
   menu
