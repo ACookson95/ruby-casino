@@ -40,7 +40,7 @@ def machine_calc
     puts"\n"
     puts"      .-------.".colorize(:yellow)
     puts"      |HotShot|".colorize(:red)
-    puts" |====_________====|".colorize(:cyan)
+    puts" |====_________====|".colorize(:yellow)
     puts" ||*|           |*||".colorize(:cyan)
     puts" ||*|--#{@slot_1}---|*|| (_)".colorize(:cyan)
     puts" ||===_________===||  |".colorize(:cyan)
@@ -71,10 +71,12 @@ def machine_calc
 
 def winnings
     if @slot_1 == "--bar-"
-        puts "You won a free drink.".colorize(:red)
+        puts "\n"
+        puts "You won free drinks at the bar.".colorize(:red)
         puts "\n" 
         slots
-    elsif @slot_1 == "cherry"
+    elsif @slot_1 == "cherry" 
+        puts "\n"
         puts "You won a free meal!".colorize(:red)
         puts "\n"
         slots
