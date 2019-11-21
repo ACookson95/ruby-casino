@@ -72,7 +72,6 @@ def blackjack_game
     if choice == 1
       hit
       if @user_total > 21
-        binding.pry
         bust
       end
     elsif choice == 2
