@@ -86,7 +86,7 @@ def create_user
     puts "That's not a name."
     create_user
   end
-  puts name
+  puts "\nWelcome #{name}!"
   puts "\nHow much money would you like to deposit into your wallet?"
   print '$'
   wallet = gets.to_i

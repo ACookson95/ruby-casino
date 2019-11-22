@@ -18,7 +18,7 @@
 @face_down_card = {card:"\n _____ \n|/ / /|\n| / / |\n|/ / /|\n ''''' \n", value:0}
 
 def blackjack
-  puts "\n=======================================================================".colorize(:cyan)
+  puts "\n=======================================================================".colorize(:blue)
   puts "\nHi #{@user.name}! Welcome to Blackjack! Are you ready to make some money?!"
   puts "\nSelect an option:"
   puts "1: Start Game"
@@ -41,9 +41,11 @@ end
 def blackjack_instructions
   puts "The goal of the game is to beat the dealer. Before the cards are dealt,"
   puts "the user will be prompted to place a bet. Then the dealer will deal 2"
-  puts "cards to the user face up and 2 to themself, 1 face up and 1 face down."
+  puts "cards to the user face up and 1 to themself."
   puts "The goal of the game is for you hand to equal 21, or closer to 21 than the"
   puts "dealer without going over 21."
+  puts "Hit: ask the dealer to give you another card."
+  puts "Stand: Keep you current hand and let the dealer play."
   blackjack
 end
 
@@ -122,12 +124,12 @@ end
 
 def display_your_hand
   puts "\nYour hand:"
-  @user_hand.each { |c| puts c[:card] }
+  @user_hand.each { |c| puts c[:card].colorize(:cyan) }
 end
 
 def display_dealer_hand
   puts "\nThe dealers hand:"
-  @dealer_hand.each { |c| puts c[:card] }
+  @dealer_hand.each { |c| puts c[:card].colorize(:cyan) }
 end
 
 def hit
