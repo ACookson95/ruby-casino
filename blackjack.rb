@@ -1,50 +1,163 @@
 
+@blackjack_cards = [
+  {card: "\n _____ \n|A    |\n|  *  |\n|    A|\n ''''' \n", value: 1},
+  {card: "\n _____ \n|2  * |\n|     |\n| *  2|\n ''''' \n", value: 2},
+  {card: "\n _____ \n|3  * |\n|  *  |\n| *  3|\n ''''' \n", value: 3},
+  {card: "\n _____ \n|4  * |\n| * * |\n| *  4|\n ''''' \n", value: 4},
+  {card: "\n _____ \n|5  * |\n|* * *|\n| *  5|\n ''''' \n", value: 5},
+  {card: "\n _____ \n|6 * *|\n| * * |\n|* * 6|\n ''''' \n", value: 6},
+  {card: "\n _____ \n|7 * *|\n|* * *|\n|* * 7|\n ''''' \n", value: 7},
+  {card: "\n _____ \n|8 ***|\n| * * |\n|*** 8|\n ''''' \n", value: 8},
+  {card: "\n _____ \n|9 ***|\n|* * *|\n|*** 9|\n ''''' \n", value: 9},
+  {card: "\n _____ \n|10 **|\n|*****|\n|***10|\n ''''' \n", value: 10},
+  {card: "\n _____ \n|J   *|\n|JACK |\n|*   J|\n ''''' \n", value: 10},
+  {card: "\n _____ \n|Q   *|\n|QUEEN|\n|*   Q|\n ''''' \n", value: 10},
+  {card: "\n _____ \n|K   *|\n|KING |\n|*   K|\n ''''' \n", value: 10}
+  ]
 
-# require_relative 
+@face_down_card = {card:"\n _____ \n|/ / /|\n| / / |\n|/ / /|\n ''''' \n", value:0}
 
-@suits = ["Hearts","Clubs","Diamonds", "Spades"]
-@values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King' 'Ace']
-@deck =[]
-# k so parts of a for look are a "value" and the "enumerable"/ Enumerable just means the "List" Or "Array"
-# type in the list you want to iterate over in "enumerable" so our list would be "@suites"
-# take out "enumerable" the whole word and type in @suites
-#k now what does a for loop do lets see
-# puts what? we want what out of @suites 
-# type puts item <--- type puts item the word after "puts" is "item"
-#now call your method to show it on screen
-# calll your method below where you typed "ohhh" # do it again
-#run it good job its named wrong type it no not that! @suits fix one
-# you see how it iterates of the "item"
-# dont we want to see values? @value == @values?
-# good job now do you think we can get hearts to show on the same line as the value?
-# now thats two for loops this is correct execpt for one small issue however run it 
-#k now lets create the deck, so first we need an empty deck right? good, now we need to push these items into the deck.....item
-# we are going to have to create a card, leave the code there will use line 29 no keep that code dont duplicate no need
-#how do you create a hash? before we move it into a deck we need to make a card thats the next step.... do you know how to make a hash?
-# k now whats a key we dont end it, end is only for functions, no thats to search we just need to create, values: is this item or item2?
-# if key was values what would the value be of that
-# lets start with suite no numbers... its ether item2 or item , which one is the suit 50/50 shot, item2 or item
-#k now put a , for the next thing... this one is called?????
-# k we created a card!!!!, now we need to SHUVVEL as they say in ruby, so shuvveeelllll that bitch in
-# so you want to call the function "createDeck" which would call itself in an infinate loop
-# first start which which array is our "deck?" k now shuvvelll what into it?
-#there ya go, now run it and see if it breaks, didnt break must of shuvvvveeeeellllleddddd right
-# k i got to get to bed now but you have create the deck now you need to get a card value so do a function for just getting what card is in slot
-# 25, after you do that then you can start to worry how to do random, player hand, dealer hand, calculating cards, chips etc.....
-def createDeck
-        for item2 in @suits  
-          #this line right here executes first
-          for item in @values
-            puts item2 + ' '+ item 
-            card = { suit: item2, value: item }
-            @deck << card
+def blackjack
+  puts "\n=======================================================================".colorize(:blue)
+  puts "\nHi #{@user.name}! Welcome to Blackjack! Are you ready to make some money?!"
+  puts "\nSelect an option:"
+  puts "1: Start Game"
+  puts "2: View Instructions"
+  puts "3: Return to the Game Menu"
 
-          end
-        end
+  case choice = gets.to_i
+  when 1
+    blackjack_game
+  when 2
+    blackjack_instructions
+  when 3
+    game_menu
+  else
+    puts "Invalid Choice. Try Again"
+    blackjack
+  end
+end
+
+def blackjack_instructions
+  puts "The goal of the game is to beat the dealer. Before the cards are dealt,"
+  puts "the user will be prompted to place a bet. Then the dealer will deal 2"
+  puts "cards to the user face up and 1 to themself."
+  puts "The goal of the game is for you hand to equal 21, or closer to 21 than the"
+  puts "dealer without going over 21."
+  puts "Hit: ask the dealer to give you another card."
+  puts "Stand: Keep you current hand and let the dealer play."
+  blackjack
+end
+
+def blackjack_game
+  @user_hand = []
+  @dealer_hand = []
+
+  place_bet
+
+  # Starting Hand
+
+  @user_hand << @blackjack_cards.sample
+  @user_hand << @blackjack_cards.sample
+
+  @dealer_hand << @blackjack_cards.sample
+  
+  display_dealer_hand
+  display_your_hand
+
+
+  loop do
+    puts "\nHit or Stand"
+    puts "1: Hit"
+    puts "2: Stand"
+    choice = gets.to_i
+    if choice == 1
+      hit
+      if @user_total > 21
+        bust
       end
-      
-      createDeck()
-      but keep your notes dnd it will help a ton
-      #im not deleting anything go ahead ill see you tomorrow
-      # whoa!!! thats a deck, now how do we take that and put it actually into a deck we know how to display one but now you need to create one
-      # run it
+    elsif choice == 2
+      break
+    else
+      puts "Invalid choice. Try again."
+    end
+  end
+
+  loop do
+    @dealer_total = 0 
+    @dealer_hand.each { |c| @dealer_total += c[:value] }
+    if @dealer_total >= 17 && @dealer_total <= 21
+      display_dealer_hand
+      display_your_hand
+      break
+    elsif @dealer_total > 21
+      display_dealer_hand
+      display_your_hand
+      puts "Dealer bust. You win"
+      @user.wallet += (@bet*2)
+      play_again
+    else
+      @dealer_hand << @blackjack_cards.sample
+    end
+  end
+
+
+
+  if @dealer_total == 21 && @user_total != 21
+      puts "Dealer got 21. Sorry you lose."
+    elsif @dealer_total == 21 && @user_total == 21
+      puts "Dealer and Player both got 21. It's a draw."
+      @user.wallet += @bet
+    elsif @dealer_total > @user_total && @dealer_total < 21
+      puts "Sorry you lose. The dealer was closer to 21."
+    elsif @dealer_total < @user_total && @user_total < 21
+      puts "You were closer to 21. You Win!"
+      @user.wallet += (@bet*2)
+    elsif @dealer_total == @user_total
+      puts "Dealer and Player both got #{@user_total}. It's a draw."
+      @user.wallet += @bet
+  end
+
+
+  play_again
+end
+
+def display_your_hand
+  puts "\nYour hand:"
+  @user_hand.each { |c| puts c[:card].colorize(:cyan) }
+end
+
+def display_dealer_hand
+  puts "\nThe dealers hand:"
+  @dealer_hand.each { |c| puts c[:card].colorize(:cyan) }
+end
+
+def hit
+  @user_hand << @blackjack_cards.sample
+  @user_total = 0
+  @user_hand.each { |c| @user_total += c[:value] }
+  display_dealer_hand
+  display_your_hand
+end
+
+def bust
+  puts "Sorry. That's a bust! You lose this one."
+  play_again
+end
+
+def twenty_one
+  puts "Congrats! You got 21!"
+  @user.wallet += (@bet*3)
+  play_again
+end
+
+def play_again
+  puts "\n1: Play Again."
+  puts "2: Return to the Menu."
+  case choice = gets.to_i
+  when 1
+    blackjack_game
+  else
+    blackjack
+  end
+end

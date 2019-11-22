@@ -13,7 +13,7 @@ puts "HOT SHOTS-SLOTS".colorize(:red)
 puts "\n"
 puts "1) Pull the lever! (-$1)".colorize(:cyan)
 puts "2) Pick lines to play".colorize(:cyan)
-puts "2) Go back to the game menu".colorize(:cyan)
+puts "3) Go back to the game menu".colorize(:cyan)
 puts "4) Check wallet".colorize(:green)
 puts "\n=======================================================================".colorize(:yellow)
 menu_choice = gets.strip.to_i

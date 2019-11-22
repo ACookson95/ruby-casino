@@ -44,6 +44,12 @@ def high_low_instructions
 end
 
 def start_game
+  
+  if @user.wallet <= 0
+    puts "\nYou don't have enough money to play."
+    puts "Returning to the menu."
+    high_low
+  end
 
   high_low_card = @high_low_cards[1..11].sample 
 
